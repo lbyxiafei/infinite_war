@@ -24,7 +24,6 @@ GameEvents.Subscribe("example_event", (data: NetworkedData<ExampleEventData>) =>
     const myArray = toArray(myArrayObject); // We can turn it back into an array ourselves.
 
     $.Msg("Received example event", myNumber, myString, myBoolean, myArrayObject, myArray);
-
 });
 
 /**
