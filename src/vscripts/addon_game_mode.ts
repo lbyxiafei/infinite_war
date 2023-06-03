@@ -1,6 +1,8 @@
 import "./lib/timers";
 import { GameMode } from "./GameMode";
 
+// This is the entry point.
+
 // Connect GameMode.Activate and GameMode.Precache to the dota engine
 Object.assign(getfenv(), {
     Activate: GameMode.Activate,

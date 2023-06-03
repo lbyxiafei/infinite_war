@@ -2,6 +2,7 @@ import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifiers/modifier_panic";
 
 const heroSelectionTime = 20;
+const forceHero = "wisp";
 
 declare global {
     interface CDOTAGameRules {
@@ -22,8 +23,50 @@ export class GameMode {
     }
 
     constructor() {
-        this.configure();
+        this.InitGameRules();
+        this.RegisterEvents();
+    }
 
+    private InitGameRules(): void {
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 3);
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
+
+        GameRules.SetShowcaseTime(0);
+        GameRules.SetHeroSelectionTime(heroSelectionTime);
+        // Debug build
+        if(IsInToolsMode()){ 
+            // skip all the starting game mode stages e.g picking screen, showcase, etc
+            GameRules.EnableCustomGameSetupAutoLaunch(true);
+            GameRules.SetCustomGameSetupAutoLaunchDelay(0);
+            GameRules.SetHeroSelectionTime(10);
+            GameRules.SetStrategyTime(0);
+            GameRules.SetPreGameTime(0);
+            GameRules.SetShowcaseTime(0);
+            GameRules.SetPostGameTime(5);
+            // disable music events
+            GameRules.SetCustomGameAllowHeroPickMusic(false);
+            GameRules.SetCustomGameAllowMusicAtGameStart(false);
+            GameRules.SetCustomGameAllowBattleMusic(false);
+            //multiple players can pick the same hero
+            GameRules.SetSameHeroSelectionEnabled(true);
+
+            // disable some setting which are annoying then testing
+            const gameModeObj = GameRules.GetGameModeEntity();
+            gameModeObj.SetAnnouncerDisabled(true);
+            gameModeObj.SetKillingSpreeAnnouncerDisabled(true);
+            gameModeObj.SetDaynightCycleDisabled(true);
+            gameModeObj.DisableHudFlip(true);
+            gameModeObj.SetDeathOverlayDisabled(true);
+            gameModeObj.SetWeatherEffectsDisabled(true);
+
+            gameModeObj.SetCustomGameForceHero(forceHero);
+        }
+        else{
+            // Release build
+        }
+    }
+
+    private RegisterEvents(): void {
         // Register event listeners for dota engine events
         ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
         ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
@@ -42,17 +85,9 @@ export class GameMode {
             });
 
             // Also apply the panic modifier to the sending player's hero
-            const hero = player.GetAssignedHero();
-            hero.AddNewModifier(hero, undefined, modifier_panic.name, { duration: 55 });
+            //const hero = player.GetAssignedHero();
+            //hero.AddNewModifier(hero, undefined, modifier_panic.name, { duration: 55 });
         });
-    }
-
-    private configure(): void {
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 3);
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
-
-        GameRules.SetShowcaseTime(0);
-        GameRules.SetHeroSelectionTime(heroSelectionTime);
     }
 
     public OnStateChange(): void {
@@ -95,7 +130,7 @@ export class GameMode {
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
         // After a hero unit spawns, apply modifier_panic for 8 seconds
-        const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; // Cast to npc since this is the 'npc_spawned' event
+        const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; 
         // Give all real heroes (not illusions) the meepo_earthbind_ts_example spell
         if (unit.IsRealHero()) {
             if (!unit.HasAbility("meepo_earthbind_ts_example")) {
