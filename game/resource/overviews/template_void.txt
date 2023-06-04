@@ -1,0 +1,8 @@
+template_void
+{
+	material materials/overviews/template_void.vmat
+	pos_x -1216
+	pos_y 1344
+	scale 2.625
+}
+
