@@ -1,5 +1,8 @@
 import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifiers/modifier_panic";
+import { BuildingBase } from "./buildings/building_base";
+
+const buildingBase = new BuildingBase();
 
 const heroSelectionTime = 20;
 const forceHero = "wisp";
@@ -26,38 +29,12 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
+        buildingBase.InitBase();
         this.Experiment();
     }
 
     private Experiment(): void {
-        //const entities = Entities.FindAllByClassname("info_target") as CDOTA_BaseNPC[];
-        //for (const e of entities){
-        //    print("test: " + e.GetAbsOrigin());
-        //}
-        const tg = Entities.FindByName(undefined, "trigger_0") as CDOTA_BaseNPC;
-        if(tg){
-            print("test?: trigger " + tg.GetAbsOrigin());
-        }
-        else{
-            print("test!");
-        }
-
-        const tt = Entities.FindByName(undefined, "target_0") as CDOTA_BaseNPC;
-        if(tt){
-            print("test?: target " + tt.GetAbsOrigin());
-        }
-        else{
-            print("test!");
-        }
-
-        const bd = Entities.FindByName(undefined, "building_0") as CDOTA_BaseNPC;
-        if(tt){
-            print("test?: building " + bd.GetAbsOrigin());
-            bd.AddNewModifier(bd, undefined, modifier_panic.name, { duration: 11 });
-        }
-        else{
-            print("test!");
-        }
+        print("test: Experiment!")
     }
 
     private InitGameRules(): void {
