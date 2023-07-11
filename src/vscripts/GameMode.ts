@@ -35,7 +35,6 @@ export class GameMode {
         //    print("test: " + e.GetAbsOrigin());
         //}
         const tg = Entities.FindByName(undefined, "trigger_0") as CDOTA_BaseNPC;
-
         if(tg){
             print("test?: trigger " + tg.GetAbsOrigin());
         }
@@ -44,9 +43,17 @@ export class GameMode {
         }
 
         const tt = Entities.FindByName(undefined, "target_0") as CDOTA_BaseNPC;
-
         if(tt){
             print("test?: target " + tt.GetAbsOrigin());
+        }
+        else{
+            print("test!");
+        }
+
+        const bd = Entities.FindByName(undefined, "building_0") as CDOTA_BaseNPC;
+        if(tt){
+            print("test?: building " + bd.GetAbsOrigin());
+            bd.AddNewModifier(bd, undefined, modifier_panic.name, { duration: 11 });
         }
         else{
             print("test!");
