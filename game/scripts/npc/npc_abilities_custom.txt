@@ -1,5 +1,5 @@
-#base "heroes/meepo.kv"
-#base "heroes/builder.kv"
+#base "abilities/builder_blink.kv"
+#base "abilities/meepo_earthbind.kv"
 
 "DOTAAbilities"
 {

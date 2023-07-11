@@ -34,7 +34,6 @@ export class GameMode {
     }
 
     private Experiment(): void {
-        print("test: Experiment!")
     }
 
     private InitGameRules(): void {
@@ -105,9 +104,7 @@ export class GameMode {
 
         // Add 4 bots to lobby in tools
         if (IsInToolsMode() && state == GameState.CUSTOM_GAME_SETUP) {
-            for (let i = 0; i < 4; i++) {
-                Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
-            }
+            Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
         }
 
         if (state === GameState.CUSTOM_GAME_SETUP) {
@@ -139,13 +136,17 @@ export class GameMode {
     }
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
-        // After a hero unit spawns, apply modifier_panic for 8 seconds
         const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; 
+
         // Give all real heroes (not illusions) the meepo_earthbind_ts_example spell
         if (unit.IsRealHero()) {
             if (!unit.HasAbility("meepo_earthbind_ts_example")) {
                 // Add lua ability to the unit
                 unit.AddAbility("meepo_earthbind_ts_example");
+            }
+            if (!unit.HasAbility("infi_ability_blink")) {
+                // Add lua ability to the unit
+                unit.AddAbility("infi_ability_blink");
             }
         }
     }
