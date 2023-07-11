@@ -1,8 +1,8 @@
 template
 {
 	material materials/overviews/template.vmat
-	pos_x -6887
-	pos_y 5686
-	scale 3.190
+	pos_x -6995
+	pos_y 5729
+	scale 3.296
 }
 
