@@ -25,6 +25,32 @@ export class GameMode {
     constructor() {
         this.InitGameRules();
         this.RegisterEvents();
+
+        this.Experiment();
+    }
+
+    private Experiment(): void {
+        //const entities = Entities.FindAllByClassname("info_target") as CDOTA_BaseNPC[];
+        //for (const e of entities){
+        //    print("test: " + e.GetAbsOrigin());
+        //}
+        const tg = Entities.FindByName(undefined, "trigger_0") as CDOTA_BaseNPC;
+
+        if(tg){
+            print("test?: trigger " + tg.GetAbsOrigin());
+        }
+        else{
+            print("test!");
+        }
+
+        const tt = Entities.FindByName(undefined, "target_0") as CDOTA_BaseNPC;
+
+        if(tt){
+            print("test?: target " + tt.GetAbsOrigin());
+        }
+        else{
+            print("test!");
+        }
     }
 
     private InitGameRules(): void {
