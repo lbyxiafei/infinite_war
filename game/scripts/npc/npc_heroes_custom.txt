@@ -1,3 +1,4 @@
+#base "heroes/builder.kv"
 
 "DOTAHeroes"
 {

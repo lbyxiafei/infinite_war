@@ -5,14 +5,7 @@ export class BuildingBase {
     }
 
     public InitBase(): void {
-        const bd = Entities.FindByName(undefined, "building_0") as CDOTA_BaseNPC;
-        if(bd){
-            bd.AddNewModifier(bd, undefined, modifier_panic.name, { duration: 11 });
-            const pos = bd.GetCenter();
-            CreateUnitByName("npc_dota_badguys_tower1_bot", pos, false, undefined, undefined, DotaTeam.BADGUYS);
-        }
-
-        this.CreateNpcOnEntity("npc_dota_badguys_tower1_bot", "base_0");
+        this.CreateNpcOnEntity("npc_dota_badguys_tower1_bot", "base_left_0");
     }
 
     private CreateNpcOnEntity(npcName: string, entityName: string, member=DotaTeam.GOODGUYS): void {

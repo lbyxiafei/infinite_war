@@ -136,18 +136,17 @@ export class GameMode {
     }
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
-        const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; 
-
+        /*
         // Give all real heroes (not illusions) the meepo_earthbind_ts_example spell
+        const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; 
         if (unit.IsRealHero()) {
             if (!unit.HasAbility("meepo_earthbind_ts_example")) {
                 // Add lua ability to the unit
                 unit.AddAbility("meepo_earthbind_ts_example");
             }
-            if (!unit.HasAbility("infi_ability_blink")) {
-                // Add lua ability to the unit
-                unit.AddAbility("infi_ability_blink");
-            }
         }
+        */
+
+        // Do some stuff here
     }
 }
