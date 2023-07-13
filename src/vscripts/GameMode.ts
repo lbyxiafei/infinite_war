@@ -1,11 +1,10 @@
 import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifiers/modifier_panic";
-import { BuildingBase } from "./buildings/building_base";
+import { BuildingUtil } from "./buildings/building_util";
+import { BuilderUtil } from "./builder/builder_util";
 
-const buildingBase = new BuildingBase();
-
-const heroSelectionTime = 20;
-const forceHero = "wisp";
+const _buildingUtil = new BuildingUtil();
+const _builderUtil= new BuilderUtil();
 
 declare global {
     interface CDOTAGameRules {
@@ -29,7 +28,7 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
-        buildingBase.InitBase();
+        _buildingUtil.InitBase();
         this.Experiment();
     }
 
@@ -41,7 +40,7 @@ export class GameMode {
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
 
         GameRules.SetShowcaseTime(0);
-        GameRules.SetHeroSelectionTime(heroSelectionTime);
+        GameRules.SetHeroSelectionTime(20);
         // Debug build
         if(IsInToolsMode()){ 
             // skip all the starting game mode stages e.g picking screen, showcase, etc
@@ -68,7 +67,7 @@ export class GameMode {
             gameModeObj.SetDeathOverlayDisabled(true);
             gameModeObj.SetWeatherEffectsDisabled(true);
 
-            gameModeObj.SetCustomGameForceHero(forceHero);
+            gameModeObj.SetCustomGameForceHero(_builderUtil.GetBuilderHeroName());
         }
         else{
             // Release build
@@ -136,17 +135,6 @@ export class GameMode {
     }
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
-        /*
-        // Give all real heroes (not illusions) the meepo_earthbind_ts_example spell
-        const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; 
-        if (unit.IsRealHero()) {
-            if (!unit.HasAbility("meepo_earthbind_ts_example")) {
-                // Add lua ability to the unit
-                unit.AddAbility("meepo_earthbind_ts_example");
-            }
-        }
-        */
-
-        // Do some stuff here
+        _builderUtil.HandleNpcSpawnedForBuilder(event);
     }
 }

@@ -1,6 +1,6 @@
 import { modifier_panic } from "../modifiers/modifier_panic";
 
-export class BuildingBase {
+export class BuildingUtil {
     constructor(){
     }
 
