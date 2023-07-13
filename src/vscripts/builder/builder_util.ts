@@ -15,13 +15,9 @@ export class BuilderUtil{
     }
 
     private InitBuilderAbilities(unit: CDOTA_BaseNPC): void {
-        for(let i=0; i<4; i++){
+        for(let i=0; i<20; i++){
             const ability = unit.GetAbilityByIndex(i) as CDOTABaseAbility;
             ability?.UpgradeAbility(true);
         }
-        //unit.GetAbilityByIndex
-        //unit.FindAbilityByName("infi_ability_upgrade")?.UpgradeAbility(true);
-        //unit.FindAbilityByName("infi_ability_move")?.UpgradeAbility(true);
-        //unit.FindAbilityByName("infi_ability_sell")?.UpgradeAbility(true);
     }
 }
