@@ -5,7 +5,7 @@ export class BuildingUtil {
     }
 
     public InitBase(): void {
-        this.CreateNpcOnEntity("npc_dota_badguys_tower1_bot", "base_left_0");
+        this.CreateNpcOnEntity("npc_dota_badguys_tower1_bot", "base_left_0_0");
     }
 
     private CreateNpcOnEntity(npcName: string, entityName: string, member=DotaTeam.GOODGUYS): void {
