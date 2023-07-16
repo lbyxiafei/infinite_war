@@ -19,9 +19,10 @@ export class BuildingUtil {
     }
 
     public FindBaseEntityByPos(pos: Vector): CBaseEntity{
-        const baseEntities = Entities.FindAllByClassnameWithin("trigger_dota", pos, 0) as CBaseEntity[];
+        const baseEntities = Entities.FindAllByClassnameWithin("trigger_dota", pos, 200) as CDOTA_BaseNPC[];
         for(const be of baseEntities){
-            print("Found:" + be);
+            print("Found:" + pos);
+            DeepPrintTable(be);
             return be;
         }
         throw "Infi - BuildingUtil/FindBaseEntityByPos: Can't find entity.";
