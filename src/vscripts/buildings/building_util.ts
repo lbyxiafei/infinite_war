@@ -5,17 +5,44 @@ export class BuildingUtil {
     }
 
     public InitBase(): void {
-        this.CreateNpcOnEntity("npc_dota_badguys_tower1_bot", "base_left_0_0");
+        this.CreateBuildingBasedOnBaseEntityName("npc_dota_badguys_tower1_bot", "base_left_0_0");
     }
 
-    private CreateNpcOnEntity(npcName: string, entityName: string, member=DotaTeam.GOODGUYS): void {
+    public CreateBuildingBasedOnPos(
+        buildingName: string, 
+        pos: Vector,
+        member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
+    {
+        const entity = this.FindBaseEntityByPos(pos) as CBaseEntity;
+        const unit = this.CreateBuildingBasedOnBaseEntity(buildingName, entity);
+        return unit;
+    }
+
+    public FindBaseEntityByPos(pos: Vector): CBaseEntity{
+        const baseEntities = Entities.FindAllByClassnameWithin("trigger_dota", pos, 0) as CBaseEntity[];
+        for(const be of baseEntities){
+            print("Found:" + be);
+            return be;
+        }
+        throw "Infi - BuildingUtil/FindBaseEntityByPos: Can't find entity.";
+    }
+
+    private CreateBuildingBasedOnBaseEntity(
+        buildingName: string, 
+        entity: CBaseEntity, 
+        member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
+    {
+        const pos = entity.GetCenter();
+        const unit = CreateUnitByName(buildingName, pos, false, undefined, undefined, member) as CDOTA_BaseNPC;
+        return unit;
+    }
+
+    private CreateBuildingBasedOnBaseEntityName(
+        buildingName: string, 
+        entityName: string, 
+        member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
+    {
         const entity = Entities.FindByName(undefined, entityName) as CDOTA_BaseNPC;
-        if(entity){
-            const pos = entity.GetCenter();
-            CreateUnitByName(npcName, pos, false, undefined, undefined, member);
-        }
-        else{
-            print("test: ???");
-        }
+        return this.CreateBuildingBasedOnBaseEntity(buildingName, entity);
     }
 }
