@@ -19,7 +19,6 @@ export class BuildingUtil {
     }
 
     public FindBaseEntityByPos(pos: Vector): CBaseEntity{
-        //pos.z = 168;
         const baseEntities = Entities.FindAllByClassnameWithin("trigger_dota", pos, 1) as CDOTA_BaseNPC[];
         for(const be of baseEntities){
             print("Found:" + pos);
