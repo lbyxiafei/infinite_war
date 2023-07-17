@@ -9,9 +9,9 @@ export class infi_ability_build extends BaseAbility
     OnSpellStart() {
         const caster = this.GetCaster();
         const pos = this.GetCursorPosition();
-        //const direction = ((pos - caster.GetAbsOrigin()) as Vector).Normalized();
-        //direction.z = 0;
-        //const distance = ((pos - caster.GetAbsOrigin()) as Vector).Length();
         const building = _buildingUtil.CreateBuildingBasedOnPos("npc_dota_badguys_tower1_bot", pos);
+        building.SetOwner(caster);
+  		building.RemoveModifierByName("modifier_invulnerable");
+  		building.RemoveAbility("backdoor_protection_in_base");
     }
 }
