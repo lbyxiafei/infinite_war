@@ -1,0 +1,8 @@
+hexagon
+{
+	material materials/overviews/hexagon.vmat
+	pos_x -6995
+	pos_y 5729
+	scale 3.296
+}
+

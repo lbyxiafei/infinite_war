@@ -1,6 +1,6 @@
 #base "abilities/builder_build.kv"
 #base "abilities/builder_move.kv"
-#base "abilities/builder_sell.kv"
+#base "abilities/builder_replace.kv"
 #base "abilities/builder_upgrade.kv"
 #base "abilities/meepo_earthbind.kv"
 

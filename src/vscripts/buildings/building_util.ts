@@ -24,7 +24,7 @@ export class BuildingUtil {
             print("Found:" + be.GetName());
             return be;
         }
-        throw "Infi - BuildingUtil/FindBaseEntityByPos: Can't find entity.";
+        throw "BuildingUtil/FindBaseEntityByPos: Can't find entity.";
     }
 
     private CreateBuildingBasedOnBaseEntity(

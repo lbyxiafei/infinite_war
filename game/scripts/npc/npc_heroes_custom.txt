@@ -1,4 +1,5 @@
 #base "heroes/builder.kv"
+#base "heroes/tower_lina.kv"
 
 "DOTAHeroes"
 {
