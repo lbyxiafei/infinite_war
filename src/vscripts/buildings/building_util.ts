@@ -5,7 +5,10 @@ export class BuildingUtil {
     }
 
     public InitTowersBase(): void {
-        this.CreateBuildingBasedOnBaseEntityName("npc_dota_hero_morphling", "base_left_0_0");
+        const tb = this.CreateBuildingBasedOnBaseEntityName("npc_dota_hero_morphling", "base_left_0_0");
+        const tb_origin = tb.GetOrigin()
+        tb_origin.z-=100
+        tb.SetOrigin(tb_origin)
     }
 
     public ReplaceTower(): void {

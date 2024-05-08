@@ -6,8 +6,11 @@ export class infi_ability_replace extends BaseAbility
     OnSpellStart(): void {
         const caster = this.GetCaster();
         const target = this.GetCursorTarget();
-        
-        print(target)
+
+        if(caster === target) {
+            return
+        }
+
         target?.Destroy();
     }
 }
