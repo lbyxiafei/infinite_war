@@ -28,7 +28,7 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
-        _buildingUtil.InitBase();
+        _buildingUtil.InitTowersBase();
         this.Experiment();
     }
 

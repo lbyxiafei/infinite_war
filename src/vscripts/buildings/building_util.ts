@@ -4,8 +4,12 @@ export class BuildingUtil {
     constructor(){
     }
 
-    public InitBase(): void {
-        this.CreateBuildingBasedOnBaseEntityName("npc_dota_badguys_tower1_bot", "base_left_0_0");
+    public InitTowersBase(): void {
+        this.CreateBuildingBasedOnBaseEntityName("npc_dota_hero_morphling", "base_left_0_0");
+    }
+
+    public ReplaceTower(): void {
+
     }
 
     public CreateBuildingBasedOnPos(
