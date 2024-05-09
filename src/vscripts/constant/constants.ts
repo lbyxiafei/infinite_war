@@ -1,3 +1,7 @@
+export class ModifierConstants {
+    static readonly Invunerable: string = "modifier_invulnerable";
+}
+
 export class BuilderConstants {
     static readonly DefaultBuilderName: string = "npc_dota_hero_wisp";
 }
@@ -9,5 +13,6 @@ export class TowerConstants {
 
     static readonly TowerBaseEntityClassname: string = "trigger_dota";
 
-    static readonly TowerPrefixes: string[] = ["base_left_", "base_right_"];
+    static readonly TowerEntityNumIdentifiers: number[] = [0,1,2];
+    static readonly TowerEntityPrefixes: string[] = ["base_left_", "base_right_"];
 }

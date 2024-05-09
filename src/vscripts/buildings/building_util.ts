@@ -10,6 +10,7 @@ export class BuildingUtil {
             const tb_origin = tower_base.GetOrigin()
             tb_origin.z-=100
             tower_base.SetOrigin(tb_origin)
+            tower_base.AddNewModifier(tower_base, undefined, "modifier_invulnerable", undefined);
         }
     }
 
@@ -72,26 +73,14 @@ export class BuildingUtil {
 
     private IsTowerEntity(entity: CBaseEntity): boolean {
         const name = entity.GetName();
-        if (name && TowerConstants.TowerPrefixes.some(prefix => name.startsWith(prefix))) {
+        if (name && TowerConstants.TowerEntityPrefixes.some(prefix => name.startsWith(prefix))) {
             const parts = name.split("_");
             const lastPart = parts[parts.length - 2];
             const num = parseInt(lastPart);
-            if (!isNaN(num) && num >= 0 && num <= 2) {
+            if (TowerConstants.TowerEntityNumIdentifiers.some(e => e===num)) {
                 return true;
             }
         }
         return false;
     }
-
-    //private IsTowerEntity(e: CBaseEntity): boolean {
-    //    if(e !== undefined && (e.GetName().startsWith("base_left_0") 
-    //        || e.GetName().startsWith("base_left_1") 
-    //        || e.GetName().startsWith("base_left_2")
-    //        || e.GetName().startsWith("base_right_0")
-    //        || e.GetName().startsWith("base_right_1")
-    //        || e.GetName().startsWith("base_right_2"))) {
-    //            return true
-    //        }  
-    //    return false
-    //}
 }
