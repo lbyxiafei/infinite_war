@@ -1,10 +1,9 @@
 import { reloadable } from "./lib/tstl-utils";
-import { modifier_panic } from "./modifiers/modifier_panic";
+import { modifier_panic } from "./modifier/modifier_panic";
+import { CreepUtil } from "./creep/creep_util";
 import { TowerUtil } from "./tower/tower_util";
 import { BuilderUtil } from "./builder/builder_util";
 
-const _towerUtil = new TowerUtil();
-const _builderUtil= new BuilderUtil();
 
 declare global {
     interface CDOTAGameRules {
@@ -14,6 +13,10 @@ declare global {
 
 @reloadable
 export class GameMode {
+    private builderUtil: BuilderUtil = new BuilderUtil();
+    private towerUtil: TowerUtil = new TowerUtil();
+    private creepUtil: CreepUtil = new CreepUtil();
+
     public static Precache(this: void, context: CScriptPrecacheContext) {
         PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
         PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
@@ -28,7 +31,7 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
-        _towerUtil.InitTowersBase();
+        this.towerUtil.InitTowersBase();
     }
 
     private InitGameRules(): void {
@@ -41,7 +44,7 @@ export class GameMode {
 
         // select builders
         const gameModeObj = GameRules.GetGameModeEntity();
-        gameModeObj.SetCustomGameForceHero(_builderUtil.GetBuilderHeroName());
+        gameModeObj.SetCustomGameForceHero(this.builderUtil.GetBuilderHeroName());
     }
 
     private RegisterEvents(): void {
@@ -71,19 +74,19 @@ export class GameMode {
     public OnStateChange(): void {
         const state = GameRules.State_Get();
 
-        // Add 4 bots to lobby in tools
-        if (IsInToolsMode() && state == GameState.CUSTOM_GAME_SETUP) {
-            Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
-        }
+        // // Add 4 bots to lobby in tools
+        // if (IsInToolsMode() && state == GameState.CUSTOM_GAME_SETUP) {
+        //     Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
+        // }
 
-        if (state === GameState.CUSTOM_GAME_SETUP) {
-            // Automatically skip setup in tools
-            if (IsInToolsMode()) {
-                Timers.CreateTimer(3, () => {
-                    GameRules.FinishCustomGameSetup();
-                });
-            }
-        }
+        // if (state === GameState.CUSTOM_GAME_SETUP) {
+        //     // Automatically skip setup in tools
+        //     if (IsInToolsMode()) {
+        //         Timers.CreateTimer(3, () => {
+        //             GameRules.FinishCustomGameSetup();
+        //         });
+        //     }
+        // }
 
         // Start game once pregame hits
         if (state === GameState.PRE_GAME) {
@@ -92,19 +95,15 @@ export class GameMode {
     }
 
     private StartGame(): void {
-        print("Game starting!");
-
-        // Do some stuff here
+        this.creepUtil.RegisterCreepsLifecycle();
     }
 
     // Called on script_reload
     public Reload() {
         print("Script reloaded!");
-
-        // Do some stuff here
     }
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
-        _builderUtil.HandleNpcSpawnedForBuilder(event);
+        this.builderUtil.HandleNpcSpawnedForBuilder(event);
     }
 }

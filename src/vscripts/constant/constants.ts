@@ -1,3 +1,8 @@
+
+export class GameConstants {
+    static readonly PrepareTimeBeforeCreep: number = 5;
+}
+
 export class ModifierConstants {
     static readonly Invunerable: string = "modifier_invulnerable";
 }
@@ -15,4 +20,8 @@ export class TowerConstants {
 
     static readonly TowerEntityNumIdentifiers: number[] = [0,1,2];
     static readonly TowerEntityPrefixes: string[] = ["base_left_", "base_right_"];
+}
+
+export class CreepConstants {
+    static readonly CreepRoundInterval: number = 10;
 }
