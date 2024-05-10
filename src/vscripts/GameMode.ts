@@ -3,7 +3,7 @@ import { modifier_panic } from "./modifiers/modifier_panic";
 import { TowerUtil } from "./tower/tower_util";
 import { BuilderUtil } from "./builder/builder_util";
 
-const _buildingUtil = new TowerUtil();
+const _towerUtil = new TowerUtil();
 const _builderUtil= new BuilderUtil();
 
 declare global {
@@ -28,7 +28,7 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
-        _buildingUtil.InitTowersBase();
+        _towerUtil.InitTowersBase();
     }
 
     private InitGameRules(): void {
