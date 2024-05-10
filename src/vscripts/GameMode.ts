@@ -35,39 +35,11 @@ export class GameMode {
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 2);
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 1);
 
-        GameRules.SetShowcaseTime(0);
-        GameRules.SetHeroSelectionTime(20);
-        // Debug build
-        if(IsInToolsMode()){ 
-            // skip all the starting game mode stages e.g picking screen, showcase, etc
-            GameRules.EnableCustomGameSetupAutoLaunch(true);
-            GameRules.SetCustomGameSetupAutoLaunchDelay(0);
-            GameRules.SetHeroSelectionTime(10);
-            GameRules.SetStrategyTime(0);
-            GameRules.SetPreGameTime(0);
-            GameRules.SetShowcaseTime(0);
-            GameRules.SetPostGameTime(5);
-            // disable music events
-            GameRules.SetCustomGameAllowHeroPickMusic(false);
-            GameRules.SetCustomGameAllowMusicAtGameStart(false);
-            GameRules.SetCustomGameAllowBattleMusic(false);
-            //multiple players can pick the same hero
-            GameRules.SetSameHeroSelectionEnabled(true);
+        GameRules.EnableCustomGameSetupAutoLaunch(true);
+        GameRules.SetCustomGameSetupAutoLaunchDelay(0);
 
-            // disable some setting which are annoying then testing
-            const gameModeObj = GameRules.GetGameModeEntity();
-            gameModeObj.SetAnnouncerDisabled(true);
-            gameModeObj.SetKillingSpreeAnnouncerDisabled(true);
-            gameModeObj.SetDaynightCycleDisabled(true);
-            gameModeObj.DisableHudFlip(true);
-            gameModeObj.SetDeathOverlayDisabled(true);
-            gameModeObj.SetWeatherEffectsDisabled(true);
-
-            gameModeObj.SetCustomGameForceHero(_builderUtil.GetBuilderHeroName());
-        }
-        else{
-            // Release build
-        }
+        const gameModeObj = GameRules.GetGameModeEntity();
+        gameModeObj.SetCustomGameForceHero(_builderUtil.GetBuilderHeroName());
     }
 
     private RegisterEvents(): void {

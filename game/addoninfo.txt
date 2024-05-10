@@ -6,7 +6,7 @@
     {
         "01"
         {
-            "Key"       "S"
+            "Key"       "SPACE"
             "Command"   "CustomGameExecuteAbility1"
             "Name"      "Execute Ability 1"
         }
