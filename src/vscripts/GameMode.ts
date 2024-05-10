@@ -29,15 +29,11 @@ export class GameMode {
         this.RegisterEvents();
 
         _buildingUtil.InitTowersBase();
-        this.Experiment();
-    }
-
-    private Experiment(): void {
     }
 
     private InitGameRules(): void {
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 3);
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 2);
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 1);
 
         GameRules.SetShowcaseTime(0);
         GameRules.SetHeroSelectionTime(20);

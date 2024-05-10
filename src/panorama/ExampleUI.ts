@@ -21,17 +21,16 @@ class ExampleUI {
         const portrait2 = new PlayerPortrait(container, "npc_dota_hero_invoker", "Player2");
 
         // Set HP of player 1 and 2 to a different value
-        portrait0.SetHealthPercent(80);
+        portrait0.SetHealthPercent(50);
         portrait2.SetHealthPercent(20);
 
-        $.Msg("OnHPChanged???"); 
         // Listen for health changed event, when it fires, handle it with this.OnHPChanged
         GameEvents.Subscribe<HPChangedEvent>("player_spawn", (event) => this.OnHPChanged(event));
     }
 
     // Event handler for HP Changed event
     OnHPChanged(event: HPChangedEvent) {
-        $.Msg("OnHPChanged !!!" + event);
+        $.Msg("OnHPChanged !!!" + event.playerID);
 
         // Get portrait for this player
         const playerPortrait = this.playerPanels[event.playerID];
