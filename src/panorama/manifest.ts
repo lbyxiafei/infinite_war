@@ -12,24 +12,25 @@ GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION
 GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_TEAMS, false);
 GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_PREGAME_STRATEGYUI, false);
 
+
 // Register custom key bindings
-function OnExecuteAbility1ButtonPressed()
-{
-  $.Msg("'S' Pressed or Released");
-}
-
-function OnTestButtonPressed()
-{
-  $.Msg("'Z' Pressed");
-}
-
-function OnTestButtonReleased()
-{
-  $.Msg("'Z' Released");
-}
-
-(function() {
-  Game.AddCommand( "CustomGameExecuteAbility1", OnExecuteAbility1ButtonPressed, "", 1<<32 );
-  Game.AddCommand( "+CustomGameTestButton", OnTestButtonPressed, "", 1<<32 );
-  Game.AddCommand( "-CustomGameTestButton", OnTestButtonReleased, "", 1<<32 );
-})();
+const spaceKey:string="SPACE"
+const spaceCommand = `On${spaceKey}${Date.now()}`;
+    Game.CreateCustomKeyBind(spaceKey, `+${spaceCommand}`);
+    Game.AddCommand(
+        `+${spaceCommand}`,
+        () => {
+            // key down callback
+            $.Msg("Space is pressed!");
+        },
+        ``,
+        1 << 32
+    );
+    Game.AddCommand(
+        `-${spaceCommand}`,
+        () => {
+            // key up callback
+        },
+        ``,
+        1 << 32
+    );
