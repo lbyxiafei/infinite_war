@@ -13,9 +13,9 @@ declare global {
 
 @reloadable
 export class GameMode {
-    private builderUtil: BuilderUtil = new BuilderUtil();
-    private towerUtil: TowerUtil = new TowerUtil();
-    private creepUtil: CreepUtil = new CreepUtil();
+    private _builderUtil: BuilderUtil = new BuilderUtil();
+    private _towerUtil: TowerUtil = new TowerUtil();
+    private _creepUtil: CreepUtil = new CreepUtil();
 
     public static Precache(this: void, context: CScriptPrecacheContext) {
         PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
@@ -31,7 +31,7 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
-        this.towerUtil.InitTowersBase();
+        this._towerUtil.InitTowersBase();
     }
 
     private InitGameRules(): void {
@@ -44,7 +44,7 @@ export class GameMode {
 
         // select builders
         const gameModeObj = GameRules.GetGameModeEntity();
-        gameModeObj.SetCustomGameForceHero(this.builderUtil.GetBuilderHeroName());
+        gameModeObj.SetCustomGameForceHero(this._builderUtil.GetBuilderHeroName());
     }
 
     private RegisterEvents(): void {
@@ -95,7 +95,7 @@ export class GameMode {
     }
 
     private StartGame(): void {
-        this.creepUtil.RegisterCreepsLifecycle();
+        this._creepUtil.RegisterCreepsLifecycle();
     }
 
     // Called on script_reload
@@ -104,6 +104,6 @@ export class GameMode {
     }
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
-        this.builderUtil.HandleNpcSpawnedForBuilder(event);
+        this._builderUtil.HandleNpcSpawnedForBuilder(event);
     }
 }
