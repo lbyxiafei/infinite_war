@@ -24,13 +24,15 @@
 
             <Label class="ExampleParagraph" text="This is an example text box! Close it to apply the 'panic' modifier to your hero. You can remove this panel in content/panorama/layout/custom_game/hud.xml" />
 
-            <Button id="CloseButton" onactivate="OnCloseButtonClicked()">
-                <Label text="Test" />
-            </Button>
+            <Panel id="ButtonContainer">
+                <Button id="TestButton" class="SampleButton" onactivate="OnCloseButtonClicked()">
+                    <Label text="Test" />
+                </Button>
 
-            <Button id="CloseButton" onactivate="OnCloseButtonClicked()">
-                <Label text="Close" />
-            </Button>
+                <Button id="CloseButton" class="SampleButton" onactivate="OnCloseButtonClicked()">
+                    <Label text="Close" />
+                </Button>
+            </Panel>
         </Panel>
     </Panel>
 </root>
