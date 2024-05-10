@@ -1,0 +1,25 @@
+<root>
+    <styles>
+        <!-- Included css style files go here -->
+        <include src="s2r://panorama/styles/dotastyles.css" />
+        <include src="file://{resources}/styles/custom_game/top_bar.css" />
+    </styles>
+
+    <scripts>
+        <!-- Included JS script files go here -->
+        <include src="file://{resources}/scripts/custom_game/TopBar.js" />
+    </scripts>
+
+    <snippets>
+        <!-- Snippets go here -->
+    </snippets>
+
+    <Panel hittest="false" style="width: 100%; height: 100%;">
+        <Panel id="TopBar">
+            <Panel class="CreepInfoContainer">
+                <Label class="RoundInfo" text="Round:{xyz}" />
+                <Label class="RoundInfo" text="Time:{abc}" />
+            </Panel>
+        </Panel>
+    </Panel>
+</root>

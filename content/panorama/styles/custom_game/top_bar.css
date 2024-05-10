@@ -1,0 +1,22 @@
+#TopBar {
+    width: 50%;
+    height: 50px;
+    horizontal-align: center;
+    vertical-align: top;
+    background-image: url("s2r://panorama/images/compendium/international2020/compendium/dashboard_panel_bg_psd.vtex");
+}
+
+.CreepInfoContainer {
+    /* width: 50%; */
+    horizontal-align: center;
+    vertical-align: center;
+    flow-children: right-wrap;
+}
+
+.RoundInfo {
+    font-size: 25px;
+    font-weight: bold;
+    color:aqua;
+    margin-left: 20px;
+    margin-right: 20px;
+}
