@@ -1,9 +1,9 @@
 import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifiers/modifier_panic";
-import { BuildingUtil } from "./buildings/building_util";
+import { TowerUtil } from "./tower/tower_util";
 import { BuilderUtil } from "./builder/builder_util";
 
-const _buildingUtil = new BuildingUtil();
+const _buildingUtil = new TowerUtil();
 const _builderUtil= new BuilderUtil();
 
 declare global {
@@ -35,9 +35,11 @@ export class GameMode {
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 2);
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 1);
 
+        // initial loading...初始界面
         GameRules.EnableCustomGameSetupAutoLaunch(true);
         GameRules.SetCustomGameSetupAutoLaunchDelay(0);
 
+        // select builders
         const gameModeObj = GameRules.GetGameModeEntity();
         gameModeObj.SetCustomGameForceHero(_builderUtil.GetBuilderHeroName());
     }

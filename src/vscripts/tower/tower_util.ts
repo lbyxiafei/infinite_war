@@ -1,6 +1,6 @@
 import { TowerConstants } from "../constant/constants";
 
-export class BuildingUtil {
+export class TowerUtil {
     constructor(){}
 
     public InitTowersBase(): void {
