@@ -1,7 +1,9 @@
 import { CreepConstants, GameConstants } from "../constant/constants";
+import { TowerUtil } from "../tower/tower_util";
 
 
 export class CreepUtil {
+    private towerUtil: TowerUtil = new TowerUtil();
     private roundCnt: number = 0;
     private roundTimer: number = 0;
 
@@ -29,6 +31,7 @@ export class CreepUtil {
     }
 
     private GenerateRoundCreeps(): void {
+        this.towerUtil.CreateBuildingBasedOnEntityName("creep_zeus", CreepConstants.CreepOriginPosition, DotaTeam.BADGUYS);
         print("gen creeps:", this.roundCnt);
     }
 

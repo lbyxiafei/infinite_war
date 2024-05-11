@@ -24,4 +24,6 @@ export class TowerConstants {
 
 export class CreepConstants {
     static readonly CreepRoundInterval: number = 10;
+
+    static readonly CreepOriginPosition: string= "base_x";
 }

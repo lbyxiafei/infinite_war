@@ -6,7 +6,7 @@ export class TowerUtil {
     public InitTowersBase(): void {
         const entities = this.FindAllTowerBases();
         for(const e of entities) {
-            const tower_base = this.CreateBuildingBasedOnBaseEntityName(TowerConstants.TowerBaseName, e.GetName());
+            const tower_base = this.CreateBuildingBasedOnEntityName(TowerConstants.TowerBaseName, e.GetName());
             const tb_origin = tower_base.GetOrigin()
             tb_origin.z-=100
             tower_base.SetOrigin(tb_origin)
@@ -26,7 +26,7 @@ export class TowerUtil {
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
     {
         const entity = this.FindBaseEntityByPos(pos) as CBaseEntity;
-        const unit = this.CreateBuildingBasedOnBaseEntity(buildingName, entity);
+        const unit = this.CreateBuildingBasedOnEntity(buildingName, entity);
         return unit;
     }
 
@@ -52,7 +52,7 @@ export class TowerUtil {
         throw "BuildingUtil/FindBaseEntityByPos: Can't find entity.";
     }
 
-    private CreateBuildingBasedOnBaseEntity(
+    public CreateBuildingBasedOnEntity(
         buildingName: string, 
         entity: CBaseEntity, 
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
@@ -62,13 +62,13 @@ export class TowerUtil {
         return unit;
     }
 
-    private CreateBuildingBasedOnBaseEntityName(
+    public CreateBuildingBasedOnEntityName(
         buildingName: string, 
         entityName: string, 
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
     {
         const entity = Entities.FindByName(undefined, entityName) as CDOTA_BaseNPC;
-        return this.CreateBuildingBasedOnBaseEntity(buildingName, entity);
+        return this.CreateBuildingBasedOnEntity(buildingName, entity);
     }
 
     private IsTowerEntity(entity: CBaseEntity): boolean {
