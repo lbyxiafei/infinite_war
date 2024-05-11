@@ -14,18 +14,11 @@ export class CreepUtil {
         Timers.CreateTimer(GameConstants.PrepareTimeBeforeCreep, () => this.CountRoundInterval());
     }
 
-    public GenerateRoundCreeps(): void {
-        print("gen creeps");
-    }
-
-    public GenerateSummonedCreep(): void {
-        print("summoned creep");
-    }
-
     private StartNewRound(): number {
         this.roundTimer=CreepConstants.CreepRoundInterval;
         this.roundCnt++;
         CustomGameEventManager.Send_ServerToAllClients("creep_round_count", {round_cnt:this.roundCnt});
+        this.GenerateRoundCreeps();
         return CreepConstants.CreepRoundInterval;
     }
 
@@ -33,5 +26,13 @@ export class CreepUtil {
         this.roundTimer--;
         CustomGameEventManager.Send_ServerToAllClients("creep_round_time", {time_left:this.roundTimer});
         return 1.0
+    }
+
+    private GenerateRoundCreeps(): void {
+        print("gen creeps:", this.roundCnt);
+    }
+
+    public GenerateSummonedCreep(): void {
+        print("summoned creep");
     }
 }
