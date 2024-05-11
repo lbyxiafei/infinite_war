@@ -14,6 +14,14 @@ export class CreepUtil {
         Timers.CreateTimer(GameConstants.PrepareTimeBeforeCreep, () => this.CountRoundInterval());
     }
 
+    public GenerateRoundCreeps(): void {
+        print("gen creeps");
+    }
+
+    public GenerateSummonedCreep(): void {
+        print("summoned creep");
+    }
+
     private StartNewRound(): number {
         this.roundTimer=CreepConstants.CreepRoundInterval;
         this.roundCnt++;

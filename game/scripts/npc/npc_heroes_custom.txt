@@ -3,6 +3,8 @@
 #base "heroes/tower_lina.kv"
 #base "heroes/tower_luna.kv"
 
+#base "creeps/creep_zeus.kv"
+
 "DOTAHeroes"
 {
 }
