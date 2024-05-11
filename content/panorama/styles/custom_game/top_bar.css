@@ -1,13 +1,14 @@
 #TopBar {
     width: 50%;
     height: 50px;
+    border-radius: 10px;
+    box-shadow: black 4px 8px 0px;
     horizontal-align: center;
     vertical-align: top;
-    background-image: url("s2r://panorama/images/compendium/international2020/compendium/dashboard_panel_bg_psd.vtex");
+    background-image: url("s2r://panorama/images/battlepass/international2022/premium_reward_models/faceless-void-background_psd.vtex");
 }
 
 .CreepInfoContainer {
-    /* width: 50%; */
     horizontal-align: center;
     vertical-align: center;
     flow-children: right-wrap;
@@ -17,6 +18,7 @@
     font-size: 25px;
     font-weight: bold;
     color:aqua;
-    margin-left: 20px;
-    margin-right: 20px;
+    padding: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
 }

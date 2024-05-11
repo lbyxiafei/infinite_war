@@ -1,6 +1,6 @@
 
 export class GameConstants {
-    static readonly PrepareTimeBeforeCreep: number = 5;
+    static readonly PrepareTimeBeforeCreep: number = 0;
 }
 
 export class ModifierConstants {

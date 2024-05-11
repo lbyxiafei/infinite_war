@@ -11,10 +11,21 @@
  *     to change them back into arrays yourself! See 'toArray()' in src/panorama/hud.ts
  */
 
+
 // To declare an event for use, add it to this table with the type of its data
 interface CustomGameEventDeclarations {
     example_event: ExampleEventData,
-    ui_panel_closed: UIPanelClosedEventData
+    ui_panel_closed: UIPanelClosedEventData,
+    creep_round_count: CreepRoundCount,
+    creep_round_time: CreepRoundTime
+}
+
+interface CreepRoundCount {
+    round_cnt: number;
+}
+
+interface CreepRoundTime {
+    time_left: number;
 }
 
 // Define the type of data sent by the example_event event

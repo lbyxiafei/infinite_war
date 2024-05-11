@@ -6,25 +6,24 @@ export class CreepUtil {
     private roundTimer: number = 0;
 
     constructor(){
-        this.roundCnt=1;
+        this.roundCnt=-1;
     }
 
     public RegisterCreepsLifecycle(): void{
-        print("register creep");
         Timers.CreateTimer(GameConstants.PrepareTimeBeforeCreep, () => this.StartNewRound());
         Timers.CreateTimer(GameConstants.PrepareTimeBeforeCreep, () => this.CountRoundInterval());
     }
 
     private StartNewRound(): number {
-        print("start new round:", this.roundCnt);
         this.roundTimer=CreepConstants.CreepRoundInterval;
         this.roundCnt++;
+        CustomGameEventManager.Send_ServerToAllClients("creep_round_count", {round_cnt:this.roundCnt});
         return CreepConstants.CreepRoundInterval;
     }
 
     private CountRoundInterval(): number {
-        print("round timer:", this.roundTimer);
         this.roundTimer--;
+        CustomGameEventManager.Send_ServerToAllClients("creep_round_time", {time_left:this.roundTimer});
         return 1.0
     }
 }
