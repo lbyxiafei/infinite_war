@@ -1,4 +1,5 @@
 import { BaseModifier, registerModifier } from "../lib/dota_ts_adapter";
+import { CreepUtil } from "../creep/creep_util";
 
 // Base speed modifier -- Could be moved to a separate file
 class ModifierSpeed extends BaseModifier {
@@ -36,8 +37,11 @@ export class modifier_panic extends ModifierSpeed {
 
     // Called when intervalThink is triggered
     OnIntervalThink(): void {
-        const parent = this.GetParent();
+        const unit = this.GetParent();
+        print("hi", unit);
 
-        parent.MoveToPosition((parent.GetAbsOrigin() + RandomVector(400)) as Vector);
+        let creepUtil = new CreepUtil();
+        creepUtil.MoveToNextPos(unit);
+        // parent.MoveToPosition((parent.GetAbsOrigin() + RandomVector(400)) as Vector);
     }
 }

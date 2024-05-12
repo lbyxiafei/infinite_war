@@ -68,7 +68,7 @@ export class TowerUtil {
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
     {
         const entity = Entities.FindByName(undefined, entityName) as CDOTA_BaseNPC;
-        return this.CreateBuildingBasedOnEntity(buildingName, entity);
+        return this.CreateBuildingBasedOnEntity(buildingName, entity, member);
     }
 
     private IsTowerEntity(entity: CBaseEntity): boolean {
