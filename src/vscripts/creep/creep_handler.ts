@@ -1,10 +1,12 @@
 import { CreepConstants, GameConstants } from "../constant/constants";
 import { modifier_panic } from "../modifier/modifier_panic";
-import { TowerHandler } from "../tower/tower_handler";
+import { MapUtil } from "../util/map_util";
+import { TableUtil } from "../util/table_util";
 
 
 export class CreepHandler {
-    private towerUtil: TowerHandler = new TowerHandler();
+    private mapUtil: MapUtil = new MapUtil();
+    private tableUtil: TableUtil = new TableUtil();
     private roundCnt: number = 0;
     private roundTimer: number = 0;
 
@@ -32,12 +34,19 @@ export class CreepHandler {
     }
 
     private GenerateRoundCreeps(): void {
-        const unit = this.towerUtil.CreateBuildingBasedOnEntityName("creep_zeus", CreepConstants.CreepOriginPosition, DotaTeam.BADGUYS);
+        const unit = this.CreateCreepBasedOnEntityName("creep_zeus", CreepConstants.CreepOriginPosition);
         unit.AddNewModifier(unit, undefined, modifier_panic.name, {duration: 55});
-        CreepConstants.Creep2Step.set(unit, 0);
+        TableUtil.Creep2Step.set(unit, 0);
     }
 
     public GenerateSummonedCreep(): void {
         print("summoned creep");
+    }
+
+    public CreateCreepBasedOnEntityName(creepName: string, entityName: string): CDOTA_BaseNPC {
+        const entity = Entities.FindByName(undefined, entityName) as CDOTA_BaseNPC;
+        const pos = entity.GetCenter();
+        const unit = CreateUnitByName(creepName, pos, false, undefined, undefined, DotaTeam.BADGUYS) as CDOTA_BaseNPC;
+        return unit;
     }
 }

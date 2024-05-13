@@ -1,6 +1,7 @@
 import { BaseModifier, registerModifier } from "../lib/dota_ts_adapter";
 import { CreepConstants } from "../constant/constants";
-import { TowerHandler } from "../tower/tower_handler";
+import { MapUtil } from "../util/map_util";
+import { TableUtil } from "../util/table_util";
 
 // Base speed modifier -- Could be moved to a separate file
 class ModifierSpeed extends BaseModifier {
@@ -16,7 +17,7 @@ class ModifierSpeed extends BaseModifier {
 
 @registerModifier()
 export class modifier_panic extends ModifierSpeed {
-    towerUtil: TowerHandler = new TowerHandler();
+    mapUtil: MapUtil = new MapUtil();
 
     // Set state
     CheckState(): Partial<Record<modifierstate, boolean>> {
@@ -27,45 +28,45 @@ export class modifier_panic extends ModifierSpeed {
 
     // Override speed given by Modifier_Speed
     GetModifierMoveSpeed_Absolute(): number {
-        return 540;
+        return 300;
     }
 
     // Run when modifier instance is created
     OnCreated(): void {
         if (IsServer()) {
-            // Think every 0.3 seconds
-            this.StartIntervalThink(0.3);
+            this.StartIntervalThink(0.1);
         }
     }
 
     // Called when intervalThink is triggered
     OnIntervalThink(): void {
         const unit = this.GetParent();
-        print("hi", unit);
-
         this.MoveToNextPos(unit);
-        // parent.MoveToPosition((parent.GetAbsOrigin() + RandomVector(400)) as Vector);
     }
 
     MoveToNextPos(unit: CDOTA_BaseNPC): void {
         const n = CreepConstants.Route.length;
         let idx: number = -1;
-        if(CreepConstants.Creep2Step.has(unit)) {
-            idx = CreepConstants.Creep2Step.get(unit) ?? -1;
+        if(TableUtil.Creep2Step.has(unit)) {
+            idx = TableUtil.Creep2Step.get(unit) ?? -1;
         }
         if(idx===-1) {
             print("creep pos wrong");
-        } else if(idx==n-1) {
-            // todo(binyan.li)
-            print("destroy and remove from table");
+            DeepPrintTable(TableUtil.Creep2Step);
+        } else if(idx===n-1) {
+            TableUtil.Creep2Step.delete(unit);
+            unit.Destroy();
+            // todo(binyan.li):
+            print("hp--");
         } else {
             const curPos = unit.GetAbsOrigin();
-            const curEnt = this.towerUtil.FindBaseEntityByPos(curPos);
-            if(CreepConstants.Route[idx]!=curEnt.GetName()) {
+            const curEnt = this.mapUtil.FindEntityBasedOnPos(curPos);
+            if(CreepConstants.Route[idx]===curEnt.GetName()) {
                 const nxtEntName = CreepConstants.Route[idx+1];
                 const entity = Entities.FindByName(undefined, nxtEntName) as CDOTA_BaseNPC;
                 const nxtPos = entity.GetCenter();
                 unit.MoveToPosition(nxtPos);
+                TableUtil.Creep2Step.set(unit, idx+1);
             }
         }
     }

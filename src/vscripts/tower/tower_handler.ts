@@ -1,12 +1,15 @@
 import { TowerConstants } from "../constant/constants";
+import { MapUtil } from "../util/map_util";
 
 export class TowerHandler {
+    private mapUtil: MapUtil = new MapUtil();
+
     constructor(){}
 
     public InitTowersBase(): void {
-        const entities = this.FindAllTowerBases();
+        const entities = this.mapUtil.FindAllHeroEntities();
         for(const e of entities) {
-            const tower_base = this.CreateBuildingBasedOnEntityName(TowerConstants.TowerBaseName, e.GetName());
+            const tower_base = this.CreateHeroTowerBasedOnEntityName(TowerConstants.TowerBaseName, e.GetName());
             const tb_origin = tower_base.GetOrigin()
             tb_origin.z-=100
             tower_base.SetOrigin(tb_origin)
@@ -20,39 +23,17 @@ export class TowerHandler {
         // instead of destroy
     }
 
-    public CreateBuildingBasedOnPos(
+    public CreateHeroTowerBasedOnPos(
         buildingName: string, 
         pos: Vector,
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
     {
-        const entity = this.FindBaseEntityByPos(pos) as CBaseEntity;
-        const unit = this.CreateBuildingBasedOnEntity(buildingName, entity);
+        const entity = this.mapUtil.FindHeroEntityBasedOnPos(pos) as CBaseEntity;
+        const unit = this.CreateHeroTowerBasedOnEntity(buildingName, entity);
         return unit;
     }
 
-    public FindAllTowerBases(): CBaseEntity[]{
-        const entities = Entities.FindAllByClassnameWithin(TowerConstants.TowerBaseEntityClassname, Vector(), 10000) as CBaseEntity[];
-        let res:CBaseEntity[] = [];
-        for(const e of entities) {
-            if(this.IsTowerEntity(e)) {
-                res.push(e);
-            }
-        }
-        return res;
-    }
-
-    public FindBaseEntityByPos(pos: Vector): CBaseEntity{
-        const entities = Entities.FindAllByClassnameWithin(TowerConstants.TowerBaseEntityClassname, pos, 1) as CBaseEntity[];
-        for(const e of entities){
-            if(!this.IsTowerEntity(e)){
-                continue;
-            }
-            return e;
-        }
-        throw "Can't find entity based on pos.";
-    }
-
-    public CreateBuildingBasedOnEntity(
+    public CreateHeroTowerBasedOnEntity(
         buildingName: string, 
         entity: CBaseEntity, 
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
@@ -62,25 +43,12 @@ export class TowerHandler {
         return unit;
     }
 
-    public CreateBuildingBasedOnEntityName(
+    public CreateHeroTowerBasedOnEntityName(
         buildingName: string, 
         entityName: string, 
         member=DotaTeam.GOODGUYS): CDOTA_BaseNPC 
     {
         const entity = Entities.FindByName(undefined, entityName) as CDOTA_BaseNPC;
-        return this.CreateBuildingBasedOnEntity(buildingName, entity, member);
-    }
-
-    private IsTowerEntity(entity: CBaseEntity): boolean {
-        const name = entity.GetName();
-        if (name && TowerConstants.TowerEntityPrefixes.some(prefix => name.startsWith(prefix))) {
-            const parts = name.split("_");
-            const lastPart = parts[parts.length - 2];
-            const num = parseInt(lastPart);
-            if (TowerConstants.TowerEntityNumIdentifiers.some(e => e===num)) {
-                return true;
-            }
-        }
-        return false;
+        return this.CreateHeroTowerBasedOnEntity(buildingName, entity, member);
     }
 }
