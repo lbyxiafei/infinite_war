@@ -35,9 +35,9 @@ export class modifier_creep_move extends ModifierSpeed {
 
     OnDestroy(): void {
         if (IsServer()) {
-            const t = this.GetCaster();
             const unit = this.GetParent();
-            print("....", t?.GetName(), unit.GetName());
+            // todo(binyan.li)
+            print(unit, "deal with attacker");
         }
     }
 

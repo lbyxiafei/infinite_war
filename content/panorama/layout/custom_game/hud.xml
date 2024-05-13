@@ -16,7 +16,7 @@
 
     <Panel hittest="false" class="MainHud">
         <Panel id="ExamplePanel">
-            <DOTAScenePanel style="width:400px;height:400px;" unit="npc_dota_hero_sven" particleonly="false"/>
+            <DOTAScenePanel style="width:400px;height:400px;" unit="npc_dota_hero_sven" particleonly="false" onactivate="OnCloseButtonClicked()"/>
 
             <!-- <Image id="BannerImage" src="file://{resources}/images/custom_game/tstl.png" /> -->
 
