@@ -16,7 +16,7 @@ class ModifierSpeed extends BaseModifier {
 }
 
 @registerModifier()
-export class modifier_panic extends ModifierSpeed {
+export class modifier_creep_move extends ModifierSpeed {
     mapUtil: MapUtil = new MapUtil();
 
     // Set state

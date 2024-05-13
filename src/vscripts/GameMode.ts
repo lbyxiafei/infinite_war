@@ -1,5 +1,5 @@
 import { reloadable } from "./lib/tstl-utils";
-import { modifier_panic } from "./modifier/modifier_panic";
+import { modifier_creep_move } from "./modifier/modifier_creep_move";
 import { CreepHandler } from "./creep/creep_handler";
 import { TowerHandler } from "./tower/tower_handler";
 import { BuilderHandler } from "./builder/builder_handler";

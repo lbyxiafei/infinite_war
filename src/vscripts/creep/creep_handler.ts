@@ -1,5 +1,5 @@
 import { CreepConstants, GameConstants } from "../constant/constants";
-import { modifier_panic } from "../modifier/modifier_panic";
+import { modifier_creep_move } from "../modifier/modifier_creep_move";
 import { MapUtil } from "../util/map_util";
 import { TableUtil } from "../util/table_util";
 
@@ -35,7 +35,7 @@ export class CreepHandler {
 
     private GenerateRoundCreeps(): void {
         const unit = this.CreateCreepBasedOnEntityName("creep_zeus", CreepConstants.CreepOriginPosition);
-        unit.AddNewModifier(unit, undefined, modifier_panic.name, {duration: 55});
+        unit.AddNewModifier(unit, undefined, modifier_creep_move.name, {duration: 55});
         TableUtil.Creep2Step.set(unit, 0);
     }
 
