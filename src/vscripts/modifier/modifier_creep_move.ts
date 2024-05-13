@@ -7,7 +7,9 @@ import { TableUtil } from "../util/table_util";
 class ModifierSpeed extends BaseModifier {
     // Declare functions
     DeclareFunctions(): ModifierFunction[] {
-        return [ModifierFunction.MOVESPEED_ABSOLUTE];
+        return [
+            ModifierFunction.MOVESPEED_ABSOLUTE
+        ];
     }
 
     GetModifierMoveSpeed_Absolute(): number {
@@ -28,7 +30,19 @@ export class modifier_creep_move extends ModifierSpeed {
 
     // Override speed given by Modifier_Speed
     GetModifierMoveSpeed_Absolute(): number {
-        return 300;
+        return 500;
+    }
+
+    OnDestroy(): void {
+        if (IsServer()) {
+            const t = this.GetCaster();
+            const unit = this.GetParent();
+            print("....", t?.GetName(), unit.GetName());
+        }
+    }
+
+    IsHidden(): boolean {
+        return true;
     }
 
     // Run when modifier instance is created

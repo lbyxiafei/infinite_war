@@ -35,7 +35,7 @@ export class CreepHandler {
 
     private GenerateRoundCreeps(): void {
         const unit = this.CreateCreepBasedOnEntityName("creep_zeus", CreepConstants.CreepOriginPosition);
-        unit.AddNewModifier(unit, undefined, modifier_creep_move.name, {duration: 55});
+        unit.AddNewModifier(unit, undefined, modifier_creep_move.name, {duration: -1});
         TableUtil.Creep2Step.set(unit, 0);
     }
 
