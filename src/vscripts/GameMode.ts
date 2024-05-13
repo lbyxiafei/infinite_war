@@ -1,8 +1,8 @@
 import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifier/modifier_panic";
-import { CreepUtil } from "./creep/creep_util";
-import { TowerUtil } from "./tower/tower_util";
-import { BuilderUtil } from "./builder/builder_util";
+import { CreepHandler } from "./creep/creep_handler";
+import { TowerHandler } from "./tower/tower_handler";
+import { BuilderHandler } from "./builder/builder_handler";
 
 
 declare global {
@@ -13,9 +13,9 @@ declare global {
 
 @reloadable
 export class GameMode {
-    private _builderUtil: BuilderUtil = new BuilderUtil();
-    private _towerUtil: TowerUtil = new TowerUtil();
-    private _creepUtil: CreepUtil = new CreepUtil();
+    private builderHandler: BuilderHandler = new BuilderHandler();
+    private towerHandler: TowerHandler = new TowerHandler();
+    private creepHandler: CreepHandler = new CreepHandler();
 
     public static Precache(this: void, context: CScriptPrecacheContext) {
         PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
@@ -31,7 +31,7 @@ export class GameMode {
         this.InitGameRules();
         this.RegisterEvents();
 
-        this._towerUtil.InitTowersBase();
+        this.towerHandler.InitTowersBase();
     }
 
     private InitGameRules(): void {
@@ -44,7 +44,7 @@ export class GameMode {
 
         // select builders
         const gameModeObj = GameRules.GetGameModeEntity();
-        gameModeObj.SetCustomGameForceHero(this._builderUtil.GetBuilderHeroName());
+        gameModeObj.SetCustomGameForceHero(this.builderHandler.GetBuilderHeroName());
     }
 
     private RegisterEvents(): void {
@@ -95,7 +95,7 @@ export class GameMode {
     }
 
     private StartGame(): void {
-        this._creepUtil.RegisterCreepsLifecycle();
+        this.creepHandler.RegisterCreepsLifecycle();
     }
 
     // Called on script_reload
@@ -104,6 +104,6 @@ export class GameMode {
     }
 
     private OnNpcSpawned(event: NpcSpawnedEvent) {
-        this._builderUtil.HandleNpcSpawnedForBuilder(event);
+        this.builderHandler.HandleNpcSpawnedForBuilder(event);
     }
 }

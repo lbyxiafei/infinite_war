@@ -1,8 +1,7 @@
 import { BuilderConstants } from "../constant/constants";
 
-export class BuilderUtil{
-    constructor(){
-    }
+export class BuilderHandler{
+    constructor(){}
 
     public HandleNpcSpawnedForBuilder(event: NpcSpawnedEvent): void {
         const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; 

@@ -1,8 +1,8 @@
 import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
-import { TowerUtil } from "../../../tower/tower_util";
+import { TowerHandler } from "../../../tower/tower_handler";
 import { TowerConstants } from "../../../constant/constants";
 
-const _buildingUtil = new TowerUtil();
+const _buildingUtil = new TowerHandler();
 
 @registerAbility()
 export class infi_ability_build extends BaseAbility

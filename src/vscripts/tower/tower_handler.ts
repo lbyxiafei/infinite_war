@@ -1,6 +1,6 @@
 import { TowerConstants } from "../constant/constants";
 
-export class TowerUtil {
+export class TowerHandler {
     constructor(){}
 
     public InitTowersBase(): void {
@@ -49,7 +49,7 @@ export class TowerUtil {
             }
             return e;
         }
-        throw "BuildingUtil/FindBaseEntityByPos: Can't find entity.";
+        throw "Can't find entity based on pos.";
     }
 
     public CreateBuildingBasedOnEntity(
